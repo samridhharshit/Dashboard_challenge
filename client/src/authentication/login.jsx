@@ -1,12 +1,11 @@
 import React, { useCallback, useContext, useState } from "react";
-import {withRouter, Redirect, Link} from "react-router-dom";
+import {Redirect, Link} from "react-router-dom";
 import app from '../auth/base'
 import { AuthContext } from "../auth"
 import * as firebase from "firebase";
-import { connect } from "react-redux";
 import axios from 'axios';
 
-const Login = (props) => {
+const Login = () => {
 
     const [loading, setLoading] = useState(false)
 
@@ -21,24 +20,17 @@ const Login = (props) => {
                     .auth()
                     .signInWithEmailAndPassword(email.value, password.value);
 
-                const currentUser = await firebase.auth().currentUser
-                const loginObject = {
-                    email: email.value,
-                    access_token: await currentUser.getIdToken()
-                }
-                const response = await axios.put('/api/auth/login', loginObject)
-                console.log(response)
-                if (response.data.status === 200) {
-                    props.mountUserAfterLogin(response.data.data)
-                    // if (response.data.data.type === "user") {
-                    //     props.mountUserAfterLogin(response.data.data)
-                    // } else {
-                    //     props.mountRestaurantAfterLogin(response.data.data)
-                    // }
-                } else {
-                    await firebase.auth().signOut()
-                    alert(response.data.message)
-                }
+                // const currentUser = await firebase.auth().currentUser
+                // const loginObject = {
+                //     email: email.value,
+                //     access_token: await currentUser.getIdToken()
+                // }
+                // const response = await axios.put('/api/auth/login', loginObject)
+                // console.log(response)
+                // if (response.data.status !== 200) {
+                //     await firebase.auth().signOut()
+                //     alert(response.data.message)
+                // }
                 window.location.reload()
             } catch (error) {
                 alert(error);
