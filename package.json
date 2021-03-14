@@ -1,0 +1,25 @@
+{
+  "name": "foodshala",
+  "version": "1.0.0",
+  "description": "order foor from restaurants",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "cd client && npm run build",
+    "install-client": "cd client && npm install",
+    "heroku-postbuild": "npm run install-client && npm run build",
+    "start": "node  server.js",
+    "dev": "concurrently \"nodemon server.js\" \"cd client && npm start\" "
+  },
+  "author": "Samridh Harshit",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "concurrently": "^5.3.0",
+    "express": "^4.17.1",
+    "mongodb": "^3.6.2",
+    "mongoose": "^5.10.6",
+    "nodemon": "^2.0.4",
+    "path": "^0.12.7"
+  }
+}

@@ -1,0 +1,212 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+html,
+body {
+  overflow-x: hidden;
+  height: 100%;
+}
+
+#root {
+  height: 100%;
+}
+
+/* navbar */
+
+.login-signup {
+  border: 1px solid;
+  border-radius: 2px;
+  background: transparent;
+  display: inline-block;
+  padding-top: .5rem;
+  padding-bottom: .5rem;
+  color: rgba(0,0,0,.5);
+}
+
+
+
+.title {
+  padding-bottom: 0;
+  border-bottom: 1px solid #000;
+}
+
+.login-signup:hover {
+  background: #ffffff;
+  text-decoration: none;
+}
+
+/* menu page */
+.signup-login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login{
+  padding: 2%;
+  margin-top: 10%;
+}
+.registration{
+  margin-top: 7.5%;
+  position: center;
+}
+.list_story_header{
+  padding-top: 5%;
+  padding-bottom: 5%;
+  position: -webkit-sticky; /* Safari & IE */
+  position: sticky;
+  top: 0;
+  background: white;
+}
+.story_container{
+  padding: 1%
+}
+.card-body{
+  text-overflow:ellipsis;
+
+}
+.view_icon{
+  display: inline-block;
+}
+.view_text{
+  display: inline-block;
+}
+.reading_icon {
+  display: inline-block;
+  margin-left: 1%;
+}
+.reading_text{
+  display: inline-block
+}
+.text{
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* number of lines to show */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+
+
+}
+.homelink{
+  text-decoration: none;
+  background-color: transparent;
+  border-bottom: 3px solid #f1e8ae;
+  color: inherit;
+}
+.homelink:hover{
+  color: #0056b3;
+  border-bottom: 3px solid #f1e8ae;
+  text-decoration: none;
+}
+
+.logo{
+  display: inline-block;
+}
+
+.log-out{
+  display: inline-block;
+  float: right;
+}
+
+.restaurant-collection-footer-button {
+  background: transparent;
+  float: right;
+  color: #0056b3;
+}
+
+.footer-button {
+  border: 1px solid;
+  border-radius: 2px;
+  background: transparent;
+  float: right;
+}
+
+.add-dish {
+  background: #806924;
+}
+
+.add-dish:hover {
+  background: #0056b3;
+}
+
+.input-group {
+  display: inline-flex;
+  justify-content: space-between;
+  padding: 5px 0;
+}
+
+.input-group > input {
+  width: 100%;
+}
+
+.input-group > select {
+  box-sizing: initial;
+  width: 100%;
+}
+
+.modal-submit {
+  width: 100%;
+  display: inline-flex;
+  justify-content: space-between;
+}
+
+.checkbox-div {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.logout-cart {
+  width: 500px;
+  display: inline-flex;
+  justify-content: space-between;
+  align-items: center
+}
+
+@media (max-width: 456px) {
+  .logout-cart {
+    width: 100%;
+  }
+}
+
+.cart_view {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
