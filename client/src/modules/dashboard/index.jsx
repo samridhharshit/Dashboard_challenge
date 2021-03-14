@@ -93,7 +93,6 @@ function Dashboard() {
     }
 
     const changeStartDate = async (date) => {
-        let data = [...displayData]
         if (date > endDate) {
             alert('cannot have a start date more than the end date!')
         } else {
@@ -103,7 +102,6 @@ function Dashboard() {
     }
 
     const changeEndDate = async (date) => {
-        let data = [...displayData]
         if (date < startDate) {
             alert('cannot have an end date more than the start date!')
         } else {
