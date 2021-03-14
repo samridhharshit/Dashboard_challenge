@@ -2,8 +2,6 @@ import React, { useCallback, useContext, useState } from "react";
 import {Redirect, Link} from "react-router-dom";
 import app from '../auth/base'
 import { AuthContext } from "../auth"
-import * as firebase from "firebase";
-import axios from 'axios';
 
 const Login = () => {
 
@@ -20,17 +18,6 @@ const Login = () => {
                     .auth()
                     .signInWithEmailAndPassword(email.value, password.value);
 
-                // const currentUser = await firebase.auth().currentUser
-                // const loginObject = {
-                //     email: email.value,
-                //     access_token: await currentUser.getIdToken()
-                // }
-                // const response = await axios.put('/api/auth/login', loginObject)
-                // console.log(response)
-                // if (response.data.status !== 200) {
-                //     await firebase.auth().signOut()
-                //     alert(response.data.message)
-                // }
                 window.location.reload()
             } catch (error) {
                 alert(error);

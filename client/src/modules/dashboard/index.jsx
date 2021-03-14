@@ -3,6 +3,8 @@ import axios from 'axios'
 import * as firebase from "firebase";
 import {Redirect} from "react-router";
 import Select from 'react-select'
+import DatePicker from "react-datepicker"
+import "react-datepicker/dist/react-datepicker.css";
 
 const options = [
     {value: "all", label: "all"},
@@ -17,7 +19,37 @@ function Dashboard() {
     const [emptyMenuMessage, setEmptyMenuMessage] = useState(null)
     const [launchType, setLaunchType] = useState("all")
     const [displayData, setDisplayData] = useState([])
+    const [startDate, setStartDate] = useState(new Date(2000, 1, 1));
+    const [endDate, setEndDate] = useState(new Date());
 
+
+    const filterDisplayData = async (lType, sDate, eDate) => {
+        setDisplayData([])
+
+        if (lType.value === "upcoming launches") {
+            await setDisplayData(launchList.filter(data => {
+                return (
+                    data['upcoming'] === true &&
+                    data['launch_date_utc'] > sDate.toISOString() &&
+                    data['launch_date_utc'] < eDate.toISOString()
+                )
+            }))
+        } else if (lType.value === "past launches") {
+            await setDisplayData(launchList.filter(data => {
+                return (data['upcoming'] !== true &&
+                    data['launch_date_utc'] > sDate.toISOString() &&
+                    data['launch_date_utc'] < eDate.toISOString())
+            }))
+        } else {
+            await setDisplayData(launchList.filter(data => {
+                return (data['launch_date_utc'] > sDate.toISOString() &&
+                    data['launch_date_utc'] < eDate.toISOString()
+                )
+            }))
+        }
+
+
+    }
 
     // implements when component mounts
     useEffect(() => {
@@ -41,6 +73,44 @@ function Dashboard() {
         }
         getItems()
     }, [])
+
+    const handleLaunchTypeChange = async (params) => {
+        await setLaunchType(params)
+        await filterDisplayData(params, startDate, endDate)
+        // await setDisplayData([])
+        // if (params.value === "upcoming launches") {
+        //     await setDisplayData(launchList.filter(data => {
+        //         return data['upcoming'] === true
+        //     }))
+        // } else if (params.value === "past launches") {
+        //     console.log("hreh")
+        //     await setDisplayData(launchList.filter(data => {
+        //         return data['upcoming'] !== true
+        //     }))
+        // } else {
+        //     await setDisplayData(launchList)
+        // }
+    }
+
+    const changeStartDate = async (date) => {
+        let data = [...displayData]
+        if (date > endDate) {
+            alert('cannot have a start date more than the end date!')
+        } else {
+            await setStartDate(date)
+            await filterDisplayData(launchType, date, endDate)
+        }
+    }
+
+    const changeEndDate = async (date) => {
+        let data = [...displayData]
+        if (date < startDate) {
+            alert('cannot have an end date more than the start date!')
+        } else {
+            await setEndDate(date)
+            await filterDisplayData(launchType, startDate, date)
+        }
+    }
 
     if (loading) {
         return (
@@ -66,25 +136,6 @@ function Dashboard() {
         )
     }
 
-    const handleLaunchTypeChange = async (params) => {
-        await setLaunchType(params)
-        await setDisplayData([])
-
-        if (params.value === "upcoming launches") {
-            await setDisplayData(launchList.filter(data => {
-                return data['upcoming'] === true
-            }))
-        } else if (params.value === "past launches") {
-            console.log("hreh")
-            await setDisplayData(launchList.filter(data => {
-                return data['upcoming'] !== true
-            }))
-        } else {
-            await setDisplayData(launchList)
-        }
-
-    }
-
     return (
         <>
             <div className="container col-lg-9 align-content-center">
@@ -101,21 +152,16 @@ function Dashboard() {
                             placeholder="Launch type.."
                             value={launchType}
                             options={options}
-                            onChange={(selected) => {handleLaunchTypeChange(selected)}}
+                            onChange={(selected) => handleLaunchTypeChange(selected)}
                         />
 
                         <div className="date col-md-3 col-sm-12">
-                            <label htmlFor="start-date" className="col-12 col-form-label">Start Date</label>
-                            <div className="col-10">
-                                <input placeholder="start-date" className="form-control" type="date" id="start-date" />
-                            </div>
+                            <DatePicker onSelect={date => changeStartDate(date)} selected={startDate} onChange={date => setStartDate(date)} />
+
                         </div>
 
                         <div className="date col-md-3 col-sm-12">
-                            <label htmlFor="End-date" className="col-12 col-form-label">End Date</label>
-                            <div className="col-10">
-                                <input placeholder="end-date" className="form-control" type="date" id="End-date" />
-                            </div>
+                            <DatePicker onSelect={date => changeEndDate(date)} selected={endDate} onChange={date => setEndDate(date)} />
                         </div>
                     </div>
                 </div>
@@ -131,7 +177,7 @@ function Dashboard() {
                                         <div className="col-md-8 col-sm-6 left">
                                             <h4 className="card-title">{vehicle['mission_name']}</h4>
                                             <div className="text">{vehicle.details}</div>
-                                            <div className="text">upcoming: {`${vehicle['upcoming']}`}</div>
+                                            <div className="text">Is it an upcoming Event? {`${vehicle['upcoming']}`}</div>
                                         </div>
                                         <div className="col-md-4 col-sm-6 right">
                                             <div className="date">{vehicle['launch_date_utc'].substring(0, 10)}</div>
