@@ -17,7 +17,7 @@ const Login = (props) => {
 
             await setLoading(true)
             try {
-                const data = await app
+                await app
                     .auth()
                     .signInWithEmailAndPassword(email.value, password.value);
 
@@ -29,11 +29,12 @@ const Login = (props) => {
                 const response = await axios.put('/api/auth/login', loginObject)
                 console.log(response)
                 if (response.data.status === 200) {
-                    if (response.data.data.type === "user") {
-                        props.mountUserAfterLogin(response.data.data)
-                    } else {
-                        props.mountRestaurantAfterLogin(response.data.data)
-                    }
+                    props.mountUserAfterLogin(response.data.data)
+                    // if (response.data.data.type === "user") {
+                    //     props.mountUserAfterLogin(response.data.data)
+                    // } else {
+                    //     props.mountRestaurantAfterLogin(response.data.data)
+                    // }
                 } else {
                     await firebase.auth().signOut()
                     alert(response.data.message)
@@ -50,7 +51,7 @@ const Login = (props) => {
     const { currentUser } = useContext(AuthContext);
 
     if (currentUser) {
-        return <Redirect to="/" />;
+        return <Redirect to="/dashboard" />;
     }
 
     return (
@@ -97,7 +98,7 @@ const Login = (props) => {
 const mapStateToProps = (state) => {
     return {
         user: state.user,
-        restaurant: state.restaurant,
+        // dashboard: state.dashboard,
         cart: state.cart,
         currentlyLoggedIn: state.currentlyLoggedIn
     }
@@ -106,7 +107,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         mountUserAfterLogin: (user) => { dispatch({ type: "MOUNT_USER", user }) },
-        mountRestaurantAfterLogin: (restaurant) => { dispatch({ type: "MOUNT_RESTAURANT", restaurant }) }
+        // mountRestaurantAfterLogin: (dashboard) => { dispatch({ type: "MOUNT_RESTAURANT", dashboard }) }
     }
 }
 

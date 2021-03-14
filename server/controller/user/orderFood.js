@@ -28,9 +28,9 @@ const orderFood = async (details) => {
         }
     }
 
-    // check if correct format of restaurant id is provided or not
+    // check if correct format of dashboard id is provided or not
     if (mongoose.Types.ObjectId.isValid(details.restaurantId)) {
-        // check if restaurant exists
+        // check if dashboard exists
         const restaurant = await restaurants.findById(`${details.restaurantId}`)
         if (!restaurant) {
             return {
@@ -38,9 +38,9 @@ const orderFood = async (details) => {
                 message: "Restaurant does not exist."
             }
         }
-        // set restaurant id to populate the orders record table
+        // set dashboard id to populate the orders record table
         restaurantId = restaurant._id
-    } else {// when incorrect format for restaurant id is provided
+    } else {// when incorrect format for dashboard id is provided
         return {
             status: 422,
             message: "Invalid Restaurant Id"
@@ -49,7 +49,7 @@ const orderFood = async (details) => {
 
     // check if correct format of food(items) id is provided or not
     if (mongoose.Types.ObjectId.isValid(details.foodId)){
-        // check if restaurant exists
+        // check if dashboard exists
         const item = await items.findOne({_id: details.foodId})
         if (!item) {
             return {
@@ -71,7 +71,7 @@ const orderFood = async (details) => {
             data: await newOrder.save(),
             message: "order added!"
         }
-    } else {// when incorrect format for restaurant id is provided
+    } else {// when incorrect format for dashboard id is provided
         return {
             status: 422,
             message: "Invalid food Id"

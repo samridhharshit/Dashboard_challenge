@@ -10,6 +10,6 @@ const restaurantSchema = schema({
     desc: String
 })
 
-const restaurant = mongoose.model("restaurant", restaurantSchema)
+const restaurant = mongoose.model("dashboard", restaurantSchema)
 
 module.exports = restaurant

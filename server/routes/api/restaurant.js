@@ -12,7 +12,7 @@ router.get('/', async (req, res) => { res.send(await getAllRestaurants()) })
 // to add a food item to the menu
 router.post('/addItem', async (req, res) => { res.send(await addItemToMenu(req.body)) })
 
-// show items from a restaurant
+// show items from a dashboard
 router.get('/get_items/:restaurantId', async (req, res) => { res.send(await getItems(req.params.restaurantId)) })
 
 // view list of customers and whatever that has been ordered by them ie order details

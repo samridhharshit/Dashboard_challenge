@@ -5,7 +5,7 @@ const getItems = async (restaurantId) => {
     if (foodItems.length === 0) {
         return {
             status: 404,
-            message: "There are no items in the restaurant's menu..."
+            message: "There are no items in the dashboard's menu..."
         }
     }
     return {

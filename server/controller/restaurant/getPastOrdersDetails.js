@@ -30,8 +30,8 @@ const getPastOrdersDetails = async (restaurant_access_token) => {
 
     // result array
     const orderHistory = []
-    // find all orders that have been made from this restaurant from the orderrecords table
-    const records = await orderRecords.find({ restaurantId: restaurant["_id"] }).select('-restaurantId') // fetching all attributes except restaurant id
+    // find all orders that have been made from this dashboard from the orderrecords table
+    const records = await orderRecords.find({ restaurantId: restaurant["_id"] }).select('-restaurantId') // fetching all attributes except dashboard id
     // iterating over each order object
     for (let i = 0; i < records.length; i++) {
         // fetch user for every purchase
@@ -48,7 +48,7 @@ const getPastOrdersDetails = async (restaurant_access_token) => {
             // then create key value pair having key as the userid
             // and value consisting of 2 attributes,
             // first the user name and secondly the item that user purchased
-            // from that restaurant
+            // from that dashboard
             orderHistory.push({
                 name: user["name"],
                 items_ordered: dish

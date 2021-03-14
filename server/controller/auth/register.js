@@ -23,7 +23,7 @@ const register = async (credentials) => {
             status: 200,
             response: await newUser.save()
         }
-    } else if (credentials.type === "restaurant"){
+    } else if (credentials.type === "dashboard"){
         if (isAUser.length > 0) {
             return {
                 status: 409,
