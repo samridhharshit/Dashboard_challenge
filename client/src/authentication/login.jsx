@@ -95,23 +95,4 @@ const Login = (props) => {
     );
 };
 
-const mapStateToProps = (state) => {
-    return {
-        user: state.user,
-        // dashboard: state.dashboard,
-        cart: state.cart,
-        currentlyLoggedIn: state.currentlyLoggedIn
-    }
-}
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        mountUserAfterLogin: (user) => { dispatch({ type: "MOUNT_USER", user }) },
-        // mountRestaurantAfterLogin: (dashboard) => { dispatch({ type: "MOUNT_RESTAURANT", dashboard }) }
-    }
-}
-
-export default withRouter(
-    connect(mapStateToProps, mapDispatchToProps)
-    (Login)
-);
+export default Login
