@@ -1,16 +1,18 @@
-import React, {useCallback, useEffect, useState} from "react";
+import React, {useCallback, useContext, useEffect, useState} from "react";
 import { Redirect, Link } from "react-router-dom";
 import app from '../auth/base'
 import * as firebase from "firebase";
+import {AuthContext} from "../auth";
 
 const SignUp = () => {
+    const { currentUser } = useContext(AuthContext)
 
     const [loading, setLoading] = useState(false)
-    const [currentUser, setCurrentUser] = useState(null)
+    const [cU, setCurrentUser] = useState(null)
 
     useEffect(() => {
         async function setUser() {
-            await setCurrentUser(await firebase.auth().currentUser)
+            await setCurrentUser(currentUser)
         }
         setUser()
     }, [currentUser])
@@ -30,7 +32,7 @@ const SignUp = () => {
                 if (!currentUser) {
                     alert('signup unsuccessful! Contact the developer...')
                 }
-                window.location.reload()
+                // window.location.reload()
             } catch (error) {
                 alert(error);
             }
@@ -40,7 +42,7 @@ const SignUp = () => {
         setLoading(false)
     }, []);
 
-    if (currentUser) {
+    if (cU) {
         return <Redirect to={'/dashboard'} />
     }
 

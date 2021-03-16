@@ -1,10 +1,10 @@
-import React, {useEffect, useState} from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 import axios from 'axios'
-import * as firebase from "firebase";
 import {Redirect} from "react-router";
 import Select from 'react-select'
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css";
+import {AuthContext} from "../../auth";
 
 const options = [
     {value: "all", label: "all"},
@@ -13,7 +13,9 @@ const options = [
 ]
 
 function Dashboard() {
-    const [currentUser, setCurrentUser] = useState(null)
+    const { currentUser } = useContext(AuthContext)
+
+    const [cU, setCurrentUser] = useState(currentUser)
     const [loading, setLoading] = useState(true)
     const [launchList , setLaunchList] = useState(null) //
     const [emptyMenuMessage, setEmptyMenuMessage] = useState(null)
@@ -54,10 +56,10 @@ function Dashboard() {
     // implements when component mounts
     useEffect(() => {
         async function getItems() {
-            const currentUser = await firebase.auth().currentUser
-            console.log(currentUser)
-            if (currentUser !== null) {
-                await setCurrentUser(currentUser)
+            // await setCurrentUser(currentUser)
+            console.log(cU)
+            if (cU !== null) {
+                // await setCurrentUser(cU)
                 // fetch all items for a dashboard
                 const response = await axios.get(`https://api.spacexdata.com/v3/launches`)
                 console.log(response)

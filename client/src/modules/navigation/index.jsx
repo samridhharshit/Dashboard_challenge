@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 import {
     Collapse,
     Button,
@@ -9,25 +9,18 @@ import {
 } from 'reactstrap';
 import {Link} from 'react-router-dom'
 import * as firebase from "firebase";
+import {AuthContext} from "../../auth";
 
 function Navigation() {
+    const { currentUser, setCurrentUser } = useContext(AuthContext)
 
     const [isOpen, setIsOpen] = useState(false);
-    const [cU, setCurrentUser]  = useState(null)
 
     const toggle = () => setIsOpen(!isOpen);
-
-    useEffect(() => {
-        async function checkForUserAuthenticity() {
-            setCurrentUser(await firebase.auth().currentUser)
-        }
-        checkForUserAuthenticity()
-    }, [cU])
 
     const handleLogout = async (e) => {
         e.preventDefault()
         await firebase.auth().signOut()
-        window.location.reload()
         await setCurrentUser(null)
     }
 
@@ -48,7 +41,7 @@ function Navigation() {
                 <Collapse isOpen={isOpen} navbar>
                     <Nav className="mr-auto" navbar />
                     {
-                        cU === null ? (
+                        currentUser === null ? (
                             <Link
                                 to='/signup'
                                 // className="login-signup"

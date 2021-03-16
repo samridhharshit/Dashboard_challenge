@@ -4,6 +4,7 @@ import app from '../auth/base'
 import { AuthContext } from "../auth"
 
 const Login = () => {
+    const { currentUser } = useContext(AuthContext);
 
     const [loading, setLoading] = useState(false)
 
@@ -18,7 +19,7 @@ const Login = () => {
                     .auth()
                     .signInWithEmailAndPassword(email.value, password.value);
 
-                window.location.reload()
+                // window.location.reload()
             } catch (error) {
                 alert(error);
             }
@@ -27,7 +28,7 @@ const Login = () => {
         []
     );
 
-    const { currentUser } = useContext(AuthContext);
+
 
     if (currentUser) {
         return <Redirect to="/dashboard" />;
